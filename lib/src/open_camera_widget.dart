@@ -37,25 +37,22 @@ Future<File> openCamera(
   //
   try {
     //
-    await PermissionHandler().requestPermissions(
-      [
-        PermissionGroup.camera,
-        PermissionGroup.microphone,
-        PermissionGroup.storage,
-        PermissionGroup.photos
-      ],
-    );
+
+    [
+      Permission.camera,
+      Permission.microphone,
+      Permission.storage,
+      Permission.photos
+    ].request();
+
     //
     List<CameraDescription> cameras = await availableCameras();
     //
     var permissionCamera =
-        await PermissionHandler().checkPermissionStatus(PermissionGroup.camera);
-    var permissionMicrophone = await PermissionHandler()
-        .checkPermissionStatus(PermissionGroup.microphone);
-    var permissionStorage = await PermissionHandler()
-        .checkPermissionStatus(PermissionGroup.storage);
-    var permissionPhotos =
-        await PermissionHandler().checkPermissionStatus(PermissionGroup.photos);
+        await Permission.camera.status;
+    var permissionMicrophone = await  Permission.microphone.status;
+    var permissionStorage = await Permission.storage.status;
+    var permissionPhotos =  await Permission.photos.status;
     //
     bool hasPermission = false;
     //
